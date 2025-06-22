@@ -31,4 +31,12 @@ test.describe('main', () => {
          console.log(`${buttonType}: ` + await page.locator(`#${buttonType}`).isVisible())
         }
     })
+
+    test('Animated Button', async ({page}) => {
+        await page.goto('http://uitestingplayground.com');
+        await page.getByRole('link', {name: 'Animated Button'}).click();
+        await page.locator('#animationButton').click();
+        await page.waitForSelector('.spin', {state: 'detached'});
+        await page.locator('#movingTarget').click();
+    })
 });
