@@ -39,4 +39,12 @@ test.describe('main', () => {
         await page.waitForSelector('.spin', {state: 'detached'});
         await page.locator('#movingTarget').click();
     })
+    test('Progress Bar', async ({page}) => {
+        await page.goto('http://uitestingplayground.com');
+        await page.getByRole('link', {name: 'Progress Bar'}).click();
+        await page.locator('#startButton').click();
+        const progressBar = page.locator('#progressBar');
+        await expect(progressBar).toHaveText(/7[0-9]%|80%/, { timeout: 15000 });
+        await page.locator('#stopButton').click();
+    })
 });
