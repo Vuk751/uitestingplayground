@@ -22,4 +22,13 @@ test.describe('main', () => {
         const yellowValue = await page.locator('.bg-warning').innerText();
         expect('Chrome CPU: ' + percentText).toEqual(yellowValue);
     })
+    test('Visibility', async ({page}) => {
+        await page.goto('http://uitestingplayground.com');
+        await page.getByRole('link', {name: 'Visibility'}).click();
+        await page.locator('#hideButton').click();
+        const buttonTypes = ['removedButton', 'zeroWidthButton', 'overlappedButton', 'transparentButton', 'invisibleButton', 'notdisplayedButton', 'offscreenButton']
+        for (const buttonType of buttonTypes) {
+         console.log(`${buttonType}: ` + await page.locator(`#${buttonType}`).isVisible())
+        }
+    })
 });
